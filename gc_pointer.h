@@ -117,6 +117,15 @@ Pointer<T,size>::Pointer(const Pointer &ob){
     // TODO: Implement Pointer constructor
     // Lab: Smart Pointer Project Lab
 
+    typename std::list<PtrDetails<T> >::iterator p = nullptr;
+    p = findPtrInfo(ob.addr);
+    if (p != nullptr) {
+        p->refcount++;
+    }
+    else {}
+    addr = ob.addr;
+    arraySize = ob.arraySize;
+    isArray = (arraySize > 0);
 }
 
 // Destructor for Pointer.
