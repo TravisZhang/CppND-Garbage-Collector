@@ -139,108 +139,110 @@ template <class T, int size> Pointer<T, size>::~Pointer() {
 
 // Collect garbage. Returns true if at least
 // one object was freed.
-template <class T, int size> bool Pointer<T, size>::collect() {
-
-  // TODO: Implement collect function
-  // LAB: New and Delete Project Lab
-  // Note: collect() will be called in the destructor
-  bool memfreed = false;
-  typename std::list<PtrDetails<T>>::iterator p;
-  // Scan refContainer looking for unreferenced pointers.
-  for (p = refContainer.begin(); p != refContainer.end();) {
-    // TODO: Implement collect()
-    // If in-use, skip.
-    std::cout << "-------------- for loop begin --------------" << std::endl;
-    std::cout << "refContainer.size: " << refContainerSize() << std::endl;
-    // showlist();
-    if (p->refcount > 0) {
-      std::cout << "p in use, skipping" << std::endl;
-      p++;
-      continue;
-    }
-    std::cout << "p not in use, if p->memPtr == nullptr: "
-              << (p->memPtr == nullptr) << std::endl;
-    // Free memory unless the Pointer is null.
-    if (p->memPtr) {
-      std::cout << "p->memPtr != nullptr "
-                << "p->isArray: " << (p->isArray) << std::endl;
-      std:: cout << "p node value: " << p->memPtr->value << std::endl;
-      if (p->isArray) {
-        std::cout << "deleting array" << std::endl;
-        delete[] p->memPtr;
-      } else {
-        std::cout << "deleting number" << std::endl;
-        delete p->memPtr;
-        std::cout << "just get out of delete" << std::endl;
-      }
-      std::cout << "p->memPtr deleted " << std::endl;
-    }
-    // Remove unused entry from refContainer.
-    std::cout << "erasing p "
-              << "if p->memPtr == nullptr: " << (p->memPtr == nullptr)
-              << std::endl;
-    std::cout << "refContainer.size: " << refContainerSize() << std::endl;
-    p = refContainer.erase(p);
-    // refContainer.erase(p++);
-    std::cout << "erasing done" << std::endl;
-    std::cout << "refContainer.size: " << refContainerSize() << std::endl;
-    std::cout << "if p == end: " << (p == refContainer.end()) << std::endl;
-    std::cout << "if p == begin: " << (p == refContainer.begin()) <<
-    std::endl;
-    // showlist();
-    std::cout << "-------------- for loop end --------------" << std::endl;
-  }
-  std::cout << "collecting done" << std::endl;
-  memfreed = true;
-  return memfreed;
-}
-
 // template <class T, int size> bool Pointer<T, size>::collect() {
 
+//   // TODO: Implement collect function
+//   // LAB: New and Delete Project Lab
+//   // Note: collect() will be called in the destructor
 //   bool memfreed = false;
 //   typename std::list<PtrDetails<T>>::iterator p;
-//   do {
-//     // Scan refContainer looking for unreferenced pointers.
-
-//     for (p = refContainer.begin(); p != refContainer.end(); p++) {
-//       // If in-use, skip.
-
-//       if (p->refcount > 0) {
-//         std::cout << "p in use, skipping" << std::endl;
-//         continue;
-//       }
-//       std::cout << "p not in use, if p->memPtr == nullptr: "
-//                 << (p->memPtr == nullptr) << std::endl;
-//       std::cout << "refContainer.size: " << refContainer.size() << std::endl;
-//       memfreed = true;
-//       // Remove unused entry from refContainer.
-//       refContainer.remove(*p);
-//       std::cout << "erasing done" << std::endl;
-//       std::cout << "refContainer.size: " << refContainer.size() << std::endl;
-//       std::cout << "if p == end: " << (p == refContainer.end()) << std::endl;
-//       std::cout << "if p == begin: " << (p == refContainer.begin())
-//                 << std::endl;
-
-//       // Free memory if not null.
-//       if (p->memPtr) {
-//         std::cout << "p->memPtr != nullptr "
-//                   << "p->isArray: " << (p->isArray) << std::endl;
-//         if (p->isArray) {
-//           std::cout << "deleting array" << std::endl;
-//           delete[] p->memPtr; // delete array
-//         } else {
-//           std::cout << "deleting number" << std::endl;
-//           delete p->memPtr; // delete single element
-//         }
-//         std::cout << "p->memPtr deleted " << std::endl;
-//       }
-//       // Restart the search.
-//       break;
+//   // Scan refContainer looking for unreferenced pointers.
+//   for (p = refContainer.begin(); p != refContainer.end();) {
+//     // TODO: Implement collect()
+//     // If in-use, skip.
+//     std::cout << "-------------- for loop begin --------------" << std::endl;
+//     std::cout << "refContainer.size: " << refContainerSize() << std::endl;
+//     // showlist();
+//     if (p->refcount > 0) {
+//       std::cout << "p in use, skipping" << std::endl;
+//       p++;
+//       continue;
 //     }
-//   } while (p != refContainer.end());
-
+//     std::cout << "p not in use, if p->memPtr == nullptr: "
+//               << (p->memPtr == nullptr) << std::endl;
+//     // Free memory unless the Pointer is null.
+//     if (p->memPtr) {
+//       std::cout << "p->memPtr != nullptr "
+//                 << "p->isArray: " << (p->isArray) << std::endl;
+//       std:: cout << "p node value: " << p->memPtr->value << std::endl;
+//       if (p->isArray) {
+//         std::cout << "deleting array" << std::endl;
+//         delete[] p->memPtr;
+//       } else {
+//         std::cout << "deleting number" << std::endl;
+//         delete p->memPtr;
+//         std::cout << "just get out of delete" << std::endl;
+//       }
+//       std::cout << "p->memPtr deleted " << std::endl;
+//     }
+//     // Remove unused entry from refContainer.
+//     std::cout << "erasing p "
+//               << "if p->memPtr == nullptr: " << (p->memPtr == nullptr)
+//               << std::endl;
+//     std::cout << "refContainer.size: " << refContainerSize() << std::endl;
+//     p = refContainer.erase(p);
+//     // refContainer.erase(p++);
+//     std::cout << "erasing done" << std::endl;
+//     std::cout << "refContainer.size: " << refContainerSize() << std::endl;
+//     std::cout << "if p == end: " << (p == refContainer.end()) << std::endl;
+//     std::cout << "if p == begin: " << (p == refContainer.begin()) <<
+//     std::endl;
+//     // showlist();
+//     std::cout << "-------------- for loop end --------------" << std::endl;
+//   }
+//   std::cout << "collecting done" << std::endl;
+//   memfreed = true;
 //   return memfreed;
 // }
+
+template <class T, int size> bool Pointer<T, size>::collect() {
+
+  bool memfreed = false;
+  typename std::list<PtrDetails<T>>::iterator p;
+  do {
+    // Scan refContainer looking for unreferenced pointers.
+
+    for (p = refContainer.begin(); p != refContainer.end(); p++) {
+      // If in-use, skip.
+      // std::cout << "-------------- for loop begin --------------" << std::endl;
+      if (p->refcount > 0) {
+        // std::cout << "p in use, skipping" << std::endl;
+        continue;
+      }
+      // std::cout << "p not in use, if p->memPtr == nullptr: "
+                // << (p->memPtr == nullptr) << std::endl;
+      // std::cout << "refContainer.size: " << refContainer.size() << std::endl;
+      memfreed = true;
+      // Remove unused entry from refContainer.
+      refContainer.remove(*p);
+      // std::cout << "erasing done" << std::endl;
+      // std::cout << "refContainer.size: " << refContainer.size() << std::endl;
+      // std::cout << "if p == end: " << (p == refContainer.end()) << std::endl;
+      // std::cout << "if p == begin: " << (p == refContainer.begin())
+                // << std::endl;
+
+      // Free memory if not null.
+      if (p->memPtr) {
+        // std::cout << "p->memPtr != nullptr "
+                  // << "p->isArray: " << (p->isArray) << std::endl;
+        std:: cout << "p node value: " << p->memPtr->value << std::endl;
+        if (p->isArray) {
+          // std::cout << "deleting array" << std::endl;
+          delete[] p->memPtr; // delete array
+        } else {
+          // std::cout << "deleting number" << std::endl;
+          delete p->memPtr; // delete single element
+        }
+        // std::cout << "p->memPtr deleted " << std::endl;
+      }
+      // std::cout << "-------------- for loop end --------------" << std::endl;
+      // Restart the search.
+      break;
+    }
+  } while (p != refContainer.end());
+  // std::cout << "collecting done" << std::endl;
+  return memfreed;
+}
 
 // Overload assignment of pointer to Pointer.
 template <class T, int size> T *Pointer<T, size>::operator=(T *t) {
